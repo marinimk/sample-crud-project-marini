@@ -33,5 +33,5 @@ Follow these steps to set up the project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/marinimk/CRUDApp
+   git clone https://github.com/marinimk/CRUDApp.git
    cd  sample-crud-project-marini
