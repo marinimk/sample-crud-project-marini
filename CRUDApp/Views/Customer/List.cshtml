@@ -5,30 +5,31 @@
 }
 
 @model List<CRUDApp.Models.Entities.Customer>
+<body>
+    <h1>Customer List</h1>
 
-<h1>Customers</h1>
-
-<table class="table">
-    <thead>
-        <th>id</th>
-        <th>name</th>
-        <th>phone</th>
-        <th>email</th>
+    <table class="table">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
         <th></th>
-
-    </thead>
-    <tbody>
-        @foreach (var customer in Model)
-        {
-            <tr>
-                <td>@customer.Id</td>
-                <td>@customer.Name</td>
-                <td>@customer.Phone</td>
-                <td>@customer.Email</td>
-                <td>
-                    <a class="btn btn-primary" asp-controller="Customer" asp-action="Edit" asp-route-id="@customer.Id">edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td class="mss-3">
+                        <a class="btn btn-primary" asp-controller="Customer" asp-action="Edit" asp-route-id="@customer.Id"><i class="bi bi-eye-fill"></i></a>
+                        @*<a class="btn btn-primary" asp-controller="Customer" asp-action="Read" asp-route-id="@customer.Id"><i class="bi bi-eye-fill"></i></a>*@
+                        @* <a class="btn btn-danger" asp-controller="Customer" asp-action="Delete" asp-route-id="@customer.Id"><i class="bi bi-trash3-fill"></i></a> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <button type="button" class="btn btn-primary" onclick="window.location.href = '@Url.Action("Add", "Customer")';"><i class="bi bi-plus-lg"></i></button>
+    </div>
+</body>

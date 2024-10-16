@@ -6,7 +6,7 @@
 
 @model CRUDApp.Models.Entities.Customer
 
-<h1>edit customer</h1>
+<h1>Edit Existing Customer</h1>
 
 @if (Model is null)
 {
@@ -15,6 +15,10 @@
 
 else
 {
+    <div>
+        <button type="button" class="btn btn-primary" onclick="history.back()"><i class="bi bi-chevron-left"></i></button>
+
+    </div>
     <form method="post">
         <div class="mt-3">
             <label class="form-label">ID:</label>
@@ -22,32 +26,77 @@ else
 
         </div>
         <div class="mt-3">
-            <label class="form-label">Name:</label>
-            <input type="text" class="form-control" asp-for="Name" />
+            <label class="form-label">Name:<span style="color:red"> *</span></label>
+            <input type="text" class="form-control" asp-for="Name" id="txtname" disabled="disabled"/>
+            <span class="text-danger" asp-validation-for="Name"></span>
         </div>
 
         <div class="mt-3">
-            <label class="form-label">Phone No.:</label>
-            <input type="text" class="form-control" asp-for="Phone" />
+            <label class="form-label">Phone No.:<span style="color:red"> *</span></label>
+            <input type="text" class="form-control" asp-for="Phone" id="txtphone" disabled="disabled" />
+            <span class="text-danger" asp-validation-for="Phone"></span>
         </div>
 
         <div class="mt-3">
-            <label class="form-label">Email:</label>
-            <input type="email" class="form-control" asp-for="Email" />
+            <label class="form-label">Email:<span style="color:red"> *</span></label>
+            <input type="email" class="form-control" asp-for="Email" id="txtemail" disabled="disabled" />
+            <span class="text-danger" asp-validation-for="Email"></span>
         </div>
 
         <div class="mt-3">
-            <input type="checkbox" class="form-check-input" id="member" asp-for="Member" />
-            <label class="form-check-label" for="member">Member</label>
+            <input type="checkbox" class="form-check-input" id="chkmember" asp-for="Member" disabled="disabled"/>
+            <label class="form-check-label" for="chkmember">Member</label>
+        </div>
+
+        <div>
+            <span style="color:red"> *</span> Required
         </div>
 
         <!--after clicking save, info will be recorded and be
             sent to the http post method in controller-->
         <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="submit" class="btn btn-danger ms-3"
-            asp-action="Delete" asp-controller="Customer">Delete</button>
+            <button type="button" class="btn btn-primary" id="btnedit" onclick="disableInputs()"><i class="bi bi-pencil"></i></button>
+            <button type="submit" class="btn btn-primary" id="btnsave" hidden><i class="bi bi-floppy"></i></button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="bi bi-trash3"></i></button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete this user?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+                        <button type="submit" class="btn btn-danger " asp-action="Delete" asp-controller="Customer"><i class="bi bi-trash3"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 }
+
+<script>
+    function disableInputs() {
+        var inputIds = ['txtname', 'txtphone', 'txtemail', 'chkmember']; // List of input IDs
+        inputIds.forEach(function (id) {
+            var input = document.getElementById(id);
+            if (input.disabled)
+                input.disabled = false;
+            else
+                input.disabled = true;
+        });
+        $("#btnedit").hide();
+        $("#btnsave").removeAttr('hidden');
+        @* document.getElementById('btnsave').hidden = false; *@
+
+    }
+</script>
 
