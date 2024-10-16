@@ -24,26 +24,18 @@ namespace CRUDApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddCustomerViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            var customer = new Customer
             {
-                // Process the data (e.g., save to a database)
-                //return RedirectToAction("Success");
+                Name = viewModel.Name,
+                Phone = viewModel.Phone,
+                Email = viewModel.Email,
+                Member = viewModel.Member
+            };
 
-                var customer = new Customer
-                {
-                    Name = viewModel.Name,
-                    Phone = viewModel.Phone,
-                    Email = viewModel.Email,
-                    Member = viewModel.Member
-                };
+            await dbContext.Customer.AddAsync(customer);
+            await dbContext.SaveChangesAsync(); //unsaved changes will be saved into db after this line
 
-                await dbContext.Customer.AddAsync(customer);
-                await dbContext.SaveChangesAsync(); //unsaved changes will be saved into db after this line
-
-                return RedirectToAction("List", "Customer");
-            }
-
-            return View(viewModel);
+            return View();
         }
 
         [HttpGet] //async sebab nak pakai dbcontext to retrieve the list from the db
@@ -76,8 +68,8 @@ namespace CRUDApp.Controllers
                 customer.Member = viewModel.Member;
 
                 await dbContext.SaveChangesAsync();
-
             }
+
             return RedirectToAction("List", "Customer");
         }
 
@@ -87,7 +79,7 @@ namespace CRUDApp.Controllers
             var customer = await dbContext.Customer
                 .AsNoTracking() //not letting EFC to track this entitiy
                 .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
-
+            
             if (customer is not null)
             {
                 dbContext.Customer.Remove(viewModel);
@@ -95,14 +87,6 @@ namespace CRUDApp.Controllers
             }
 
             return RedirectToAction("List", "Customer");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Read(int id)
-        {
-            var customer = await dbContext.Customer.FindAsync(id);
-
-            return View(customer);
         }
 
     }

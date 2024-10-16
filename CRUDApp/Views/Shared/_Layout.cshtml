@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CRUDApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CRUDApp.styles.css" asp-append-version="true" />
 </head>
@@ -45,15 +44,9 @@
             &copy; 2024 - CRUDApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-@*  C:\Users\Salam\source\repos\CRUDApp\CRUDApp\wwwroot\lib\jquery\dist\jquery.min.js
-    C:\Users\Salam\source\repos\CRUDApp\CRUDApp\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
-    C:\Users\Salam\source\repos\CRUDApp\CRUDApp\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
- *@    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
